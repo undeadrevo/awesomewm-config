@@ -1,5 +1,5 @@
 # awesomewm-config
-AwesomeWM DWM-esque theme
+DWM-esque AwesomeWM theme
 
 LICENSE: [BY-NC-SA](http://creativecommons.org/licenses/by-nc-sa/4.0)
 
