@@ -9,7 +9,7 @@ beautiful.init(os.getenv("HOME") .. "/.config/awesome/theme/theme.lua")
 -- common
 modkey     = "Mod4"
 altkey     = "Mod1"
-terminal   = "sakura"
+terminal   = "terminator"
 editor     = os.getenv("EDITOR") or "nano" or "vi"
 
 -- user defined
