@@ -1,18 +1,32 @@
--- Custom Holo AwesomeWM theme
+
+--[[
+                                
+     Customised Holo Awesome WM config 4.0 
+     github.com/undeadrevo/awesomewm-config  
+                                
+--]]
 
 -- {{{ Required libraries
-local gears         = require("gears")
 local awful         = require("awful")
                       require("awful.autofocus")
-local wibox         = require("wibox")
 local beautiful     = require("beautiful")
-local naughty       = require("naughty")
-local lain          = require("lain")
-local shape         = require("gears.shape")
---local menubar       = require("menubar")
 local freedesktop   = require("freedesktop")
+local gears         = require("gears")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
+local lain          = require("lain")
+local naughty       = require("naughty")
+local shape         = require("gears.shape")
+local wibox         = require("wibox")
+
 -- }}}
+
+-- {{{ Required variables
+require("vars")
+--}}}
+
+-- {{{ Tags
+require("tags")
+--}}}
 
 -- {{{ Error handling
 if awesome.startup_errors then
@@ -39,8 +53,8 @@ end
 require("autostart")
 -- }}}
 
--- {{{ Variable definitions
-require("vars")
+-- {{{ Helper functions
+
 -- }}}
 
 -- {{{ Menu
@@ -51,9 +65,8 @@ require("menu")
 require("wibar")
 -- }}}
 
--- {{{ Keybinds
 require("keybinds")
---- }}}
+-- }}}
 
 -- {{{ Rules
 require("rules")

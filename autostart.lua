@@ -1,6 +1,5 @@
 local awful         = require("awful")
 
--- {{{ Autostart applications
 local function run_once(cmd)
   findme = cmd
   firstspace = cmd:find(" ")
@@ -10,9 +9,7 @@ local function run_once(cmd)
   awful.spawn.with_shell(string.format("pgrep -u $USER -x %s > /dev/null || (%s)", findme, cmd))
 end
 
-run_once("xbindkeys")
 run_once("nm-applet")
 run_once("blueman-applet")
 run_once("volumeicon")
 run_once("mate-power-manager")
--- }}}

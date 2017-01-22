@@ -1,12 +1,10 @@
-local gears         = require("gears")
-local awful         = require("awful")
-local wibox         = require("wibox")
-local beautiful     = require("beautiful")
-local naughty       = require("naughty")
-local lain          = require("lain")
+local awful			= require("awful")
+local beautiful		= require("beautiful")
+local gears			= require("gears")
+local lain			= require("lain")
 local shape         = require("gears.shape")
+local wibox			= require("wibox")
 
--- {{{ Helper functions
 local function client_menu_toggle_fn()
     local instance = nil
 
@@ -19,42 +17,33 @@ local function client_menu_toggle_fn()
         end
     end
 end
--- }}}
 
--- {{{ Wibar
-markup = lain.util.markup
-blue   = "#80CCE6"
-space3 = markup.font("Tamsyn 3", " ")
+local markup = lain.util.markup
+local blue   = "#80CCE6"
+local space3 = markup.font("Tamsyn 3", " ")
 
 -- Clock
-mytextclock = wibox.widget.textclock(markup("#FFFFFF", space3 .. "%I:%M %p" .. markup.font("Tamsyn 4", " ")))
-clock_icon = wibox.widget.imagebox(beautiful.clock)
-clockbg = wibox.container.background(mytextclock, beautiful.bg_focus, shape.rectangle)
-clockwidget = wibox.container.margin(clockbg, 0, 3, 5, 5)
+local mytextclock = wibox.widget.textclock(markup("#FFFFFF", space3 .. "%H:%M   " .. markup.font("Tamsyn 4", " ")))
+local clock_icon = wibox.widget.imagebox(beautiful.clock)
+local clockbg = wibox.container.background(mytextclock, beautiful.bg_focus, shape.rectangle)
+local clockwidget = wibox.container.margin(clockbg, 0, 3, 5, 5)
 
 -- Calendar
-mytextcalendar = wibox.widget.textclock(markup("#FFFFFF", space3 .. "%d %b " .. markup.font("Tamsyn 5", " ")))
-calendar_icon = wibox.widget.imagebox(beautiful.calendar)
-calbg = wibox.container.background(mytextcalendar, beautiful.bg_focus, shape.rectangle)
-calendarwidget = wibox.container.margin(calbg, 0, 0, 5, 5)
+local mytextcalendar = wibox.widget.textclock(markup("#FFFFFF", space3 .. "%d %b " .. markup.font("Tamsyn 5", " ")))
+local calendar_icon = wibox.widget.imagebox(beautiful.calendar)
+local calbg = wibox.container.background(mytextcalendar, beautiful.bg_focus, shape.rectangle)
+local calendarwidget = wibox.container.margin(calbg, 0, 0, 5, 5)
 lain.widgets.calendar.attach(calendarwidget, { fg = "#FFFFFF", position = "bottom_right", font = "Monospace", font_size = 9 })
 
 -- Separators
-first = wibox.widget.textbox('<span font="Tamsyn 7"> </span>')
-spr_small = wibox.widget.imagebox()
-spr_small:set_image(beautiful.spr_small)
-spr_very_small = wibox.widget.imagebox()
-spr_very_small:set_image(beautiful.spr_very_small)
-spr_right = wibox.widget.imagebox()
-spr_right:set_image(beautiful.spr_right)
-spr_bottom_right = wibox.widget.imagebox()
-spr_bottom_right:set_image(beautiful.spr_bottom_right)
-spr_left = wibox.widget.imagebox()
-spr_left:set_image(beautiful.spr_left)
-bar = wibox.widget.imagebox()
-bar:set_image(beautiful.bar)
-bottom_bar = wibox.widget.imagebox()
-bottom_bar:set_image(beautiful.bottom_bar)
+local first = wibox.widget.textbox('<span font="Tamsyn 7"> </span>')
+local spr_small = wibox.widget.imagebox(beautiful.spr_small)
+local spr_very_small = wibox.widget.imagebox(beautiful.spr_very_small)
+local spr_right = wibox.widget.imagebox(beautiful.spr_right)
+local spr_bottom_right = wibox.widget.imagebox(beautiful.spr_bottom_right)
+local spr_left = wibox.widget.imagebox(beautiful.spr_left)
+local bar = wibox.widget.imagebox(beautiful.bar)
+local bottom_bar = wibox.widget.imagebox(beautiful.bottom_bar)
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = awful.util.table.join(
@@ -122,10 +111,14 @@ local barcolor  = gears.color({
 screen.connect_signal("property::geometry", set_wallpaper)
 
 awful.screen.connect_for_each_screen(function(s)
+    -- Quake application
+    s.quake = lain.util.quake({ app = terminal })
+
     -- Wallpaper
     set_wallpaper(s)
 
-require("tags")
+    -- Tags
+    awful.tag(tagnames, s, awful.layout.layouts)
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -144,7 +137,7 @@ require("tags")
     s.mytag = wibox.container.margin(mytaglistcont, 0, 0, 5, 5)
 
     -- Create a tasklist widget
-    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons, { bg_focus = beautiful.bg_focus, shape = shape.rectangle, shape_border_width = 5, shape_border_color = beautiful.tasklist_bg_normal, align = "center" })
+    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons, { bg_focus = beautiful.bg_focus, shape = shape.rectangle, shape_border_width = 0, shape_border_color = beautiful.tasklist_bg_normal, align = "center" })
 
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s, height = 32 })
@@ -165,10 +158,7 @@ require("tags")
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
-            --mailwidget,
-            --batwidget,
-            spr_right,
-            clockwidget,
+            spr_left,
         },
     }
 
@@ -185,8 +175,13 @@ require("tags")
         },
         s.mytasklist, -- Middle widget
         { -- Right widgets
-            layout = wibox.layout.fixed.horizontal
+            layout = wibox.layout.fixed.horizontal,
+            spr_bottom_right,
+            calendar_icon,
+            calendarwidget,
+            bottom_bar,
+            clock_icon,
+            clockwidget,
         },
     }
 end)
--- }}}
