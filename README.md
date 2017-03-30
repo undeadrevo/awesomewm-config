@@ -1,14 +1,14 @@
 # awesomewm-config
 Shadowtag 2.0
 
-DWM-esque AwesomeWM theme
+DWM inspired AwesomeWM theme
 
 LICENSE: [BY-NC-SA](http://creativecommons.org/licenses/by-nc-sa/4.0)
 
 Forked from [copycat-killer's Holo AwesomeWM theme](https://github.com/copycat-killer/awesome-copycats)
 
 Shadowtag 2.0 in action (Wallpaper no longer included due to 4.1's rewrite)
-![screenshot](http://u.shokusho.com/img/subsynod.png)
+![screenshot](http://u.shokusho.com/img/epistrophy.png)
 
 Tag list requires ![Font Awesome](http://fontawesome.io/) to be installed.
 
