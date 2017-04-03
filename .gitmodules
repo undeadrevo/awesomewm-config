@@ -1,0 +1,8 @@
+[submodule "lain"]
+	path = lain
+	url = https://github.com/copycat-killer/lain.git
+	tag = fc6e880
+[submodule "freedesktop"]
+	path = freedesktop
+	url = https://github.com/copycat-killer/awesome-freedesktop.git
+	tag = f9e7629
