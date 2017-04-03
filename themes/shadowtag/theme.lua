@@ -16,7 +16,7 @@ local os     = { getenv = os.getenv }
 local theme                                     = {}
 theme.default_dir                               = require("awful.util").get_themes_dir() .. "default"
 theme.icon_dir                                  = os.getenv("HOME") .. "/.config/awesome/themes/shadowtag/icons"
---theme.wallpaper                                 = os.getenv("HOME") .. "/.config/awesome/themes/shadowtag/wall.png"
+theme.wallpaper                                 = os.getenv("HOME") .. "/.config/awesome/themes/shadowtag/wall.png"
 theme.font                                      = "Roboto Bold 8"
 theme.taglist_font                              = "FontAwesome 10"
 theme.fg_normal                                 = "#FFFFFF"
@@ -179,7 +179,7 @@ function theme.at_screen_connect(s)
     if type(wallpaper) == "function" then
         theme.wallpaper = theme.wallpaper(s)
     end
---    gears.wallpaper.maximized(theme.wallpaper, s, true)
+      gears.wallpaper.maximized(theme.wallpaper, s, true)
 
     -- Tags
     awful.tag(awful.util.tagnames, s, awful.layout.layouts)
