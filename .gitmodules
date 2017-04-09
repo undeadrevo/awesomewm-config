@@ -6,3 +6,7 @@
 	path = freedesktop
 	url = https://github.com/copycat-killer/awesome-freedesktop.git
 	tag = f9e7629
+[submodule "revelation"]
+	path = revelation
+	url =  https://github.com/guotsuan/awesome-revelation.git
+	tag = aa05fce
