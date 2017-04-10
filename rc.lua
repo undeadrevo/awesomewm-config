@@ -20,7 +20,6 @@ local lain          = require("lain")
 --local menubar       = require("menubar")
 local freedesktop   = require("freedesktop")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
-local revelation    = require("revelation")
 -- }}}
 
 -- {{{ Error handling
@@ -161,7 +160,6 @@ lain.layout.cascade.tile.ncol          = 2
 
 local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme)
 beautiful.init(theme_path)
-revelation.init()
 -- }}}
 
 -- {{{ Menu
@@ -214,12 +212,7 @@ root.buttons(awful.util.table.join(
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
-    -- Take a screenshot
-    -- https://github.com/copycat-killer/dots/blob/master/bin/screenshot
-    --awful.key({ altkey }, "p", function() os.execute("screenshot") end),
 
-    -- Expose View
-    awful.key({ altkey,           }, "Tab",      revelation),
     -- Hotkeys
     awful.key({ superkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
@@ -356,69 +349,7 @@ globalkeys = awful.util.table.join(
     awful.key({ altkey, }, "c", function () lain.widget.calendar.show(7) end),
     awful.key({ altkey, }, "h", function () if beautiful.fs then beautiful.fs.show(7) end end),
     awful.key({ altkey, }, "w", function () if beautiful.weather then beautiful.weather.show(7) end end),
---[[
-    -- ALSA volume control
-    awful.key({ altkey }, "Up",
-        function ()
-            os.execute(string.format("amixer set %s 1%%+", beautiful.volume.channel))
-            beautiful.volume.update()
-        end),
-    awful.key({ altkey }, "Down",
-        function ()
-            os.execute(string.format("amixer set %s 1%%-", beautiful.volume.channel))
-            beautiful.volume.update()
-        end),
-    awful.key({ altkey }, "m",
-        function ()
-            os.execute(string.format("amixer set %s toggle", beautiful.volume.togglechannel or beautiful.volume.channel))
-            beautiful.volume.update()
-        end),
-    awful.key({ altkey, "Control" }, "m",
-        function ()
-            os.execute(string.format("amixer set %s 100%%", beautiful.volume.channel))
-            beautiful.volume.update()
-        end),
 
-		awful.key({ altkey, "Control" }, "0",
-				function ()
-						os.execute(string.format("amixer -q set %s 0%%", beautiful.volume.channel))
-						beautiful.volume.update()
-				end),
-
-    -- MPD control
-    awful.key({ altkey, "Control" }, "Up",
-        function ()
-            awful.spawn.with_shell("mpc toggle")
-            beautiful.mpd.update()
-        end),
-    awful.key({ altkey, "Control" }, "Down",
-        function ()
-            awful.spawn.with_shell("mpc stop")
-            beautiful.mpd.update()
-        end),
-    awful.key({ altkey, "Control" }, "Left",
-        function ()
-            awful.spawn.with_shell("mpc prev")
-            beautiful.mpd.update()
-        end),
-    awful.key({ altkey, "Control" }, "Right",
-        function ()
-            awful.spawn.with_shell("mpc next")
-            beautiful.mpd.update()
-        end),
-    awful.key({ altkey }, "0",
-        function ()
-            local common = { text = "MPD widget ", position = "top_middle", timeout = 2 }
-            if beautiful.mpd.timer.started then
-                beautiful.mpd.timer:stop()
-                common.text = common.text .. lain.util.markup.bold("OFF")
-            else
-                beautiful.mpd.timer:start()
-                common.text = common.text .. lain.util.markup.bold("ON")
-            end
-            naughty.notify(common)
-        end),
-]]--
     -- Copy primary to clipboard (terminals to gtk)
     awful.key({ superkey }, "c", function () awful.spawn("xsel | xsel -i -b") end),
     -- Copy clipboard to primary (gtk to terminals)
@@ -569,14 +500,6 @@ awful.rules.rules = {
     -- Titlebars
     { rule_any = { type = { "dialog", "normal" } },
       properties = { titlebars_enabled = true } },
-
-    -- Set Firefox to always map on the first tag on screen 1.
-
-   -- { rule = { class = "Firefox" },
-   --   properties = { screen = 1, tag = screen[1].tags[1] } },
-
-   -- { rule = { class = "Gimp", role = "gimp-image-window" },
-   --       properties = { maximized = true } },
 
     { rule = { class = "Firefox" },
       properties = { screen = 1, tag = screen[1].tags[1] } },

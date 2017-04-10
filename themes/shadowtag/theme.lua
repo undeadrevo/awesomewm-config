@@ -17,7 +17,7 @@ local theme                                     = {}
 theme.default_dir                               = require("awful.util").get_themes_dir() .. "default"
 theme.icon_dir                                  = os.getenv("HOME") .. "/.config/awesome/themes/shadowtag/icons"
 theme.wallpaper                                 = os.getenv("HOME") .. "/.config/awesome/themes/shadowtag/wall.png"
-theme.font                                      = "Roboto Bold 8"
+theme.font                                      = "Source Code Pro 8"
 theme.taglist_font                              = "FontAwesome 10"
 theme.fg_normal                                 = "#FFFFFF"
 theme.fg_focus                                  = "#0099CC"
@@ -97,17 +97,17 @@ theme.titlebar_maximized_button_focus_active    = theme.default_dir.."/titlebar/
 
 local markup = lain.util.markup
 local blue   = "#80CCE6"
-local space3 = markup.font("Roboto 3", " ")
+local space3 = markup.font("Source Code Pro 3", " ")
 
 -- Clock
-local mytextclock = wibox.widget.textclock(markup("#FFFFFF", space3 .. "%I:%M:%S %p " .. markup.font("Roboto 4", " ")))
+local mytextclock = wibox.widget.textclock(markup("#FFFFFF", space3 .. "%I:%M:%S %p " .. markup.font("Source Code Pro 4", " ")))
 mytextclock.font = theme.font
 local clock_icon = wibox.widget.imagebox(theme.clock)
 local clockbg = wibox.container.background(mytextclock, theme.bg_focus, gears.shape.rectangle)
 local clockwidget = wibox.container.margin(clockbg, 0, 3, 5, 5)
 
 -- Calendar
-local mytextcalendar = wibox.widget.textclock(markup.fontfg(theme.font, "#FFFFFF", space3 .. "%d %b %Y " .. markup.font("Roboto 5", " ")))
+local mytextcalendar = wibox.widget.textclock(markup.fontfg(theme.font, "#FFFFFF", space3 .. "%d %b %Y " .. markup.font("Source Code Pro 5", " ")))
 local calendar_icon = wibox.widget.imagebox(theme.calendar)
 local calbg = wibox.container.background(mytextcalendar, theme.bg_focus, gears.shape.rectangle)
 local calendarwidget = wibox.container.margin(calbg, 0, 0, 5, 5)
@@ -117,7 +117,7 @@ lain.widget.calendar({
         fg = "#FFFFFF",
         bg = theme.bg_normal,
         position = "top_right",
-        font = "Monospace 10"
+        font = "Source Code Pro 10"
     }
 })
 
@@ -126,7 +126,7 @@ local cpu_icon = wibox.widget.imagebox(theme.cpu)
 local cpu = lain.widget.cpu({
     settings = function()
         widget:set_markup(space3 .. markup.font(theme.font, "CPU " .. cpu_now.usage
-                          .. "% ") .. markup.font("Roboto 5", " "))
+                          .. "% ") .. markup.font("Source Code Pro 5", " "))
     end
 })
 local cpubg = wibox.container.background(cpu.widget, theme.bg_focus, gears.shape.rectangle)
@@ -137,8 +137,8 @@ local netdown_icon = wibox.widget.imagebox(theme.net_down)
 local netup_icon = wibox.widget.imagebox(theme.net_up)
 local net = lain.widget.net({
     settings = function()
-        widget:set_markup(markup.font("Roboto 1", " ") .. markup.font(theme.font, net_now.received .. " - "
-                          .. net_now.sent) .. markup.font("Roboto 2", " "))
+        widget:set_markup(markup.font("Source Code Pro 1", " ") .. markup.font(theme.font, net_now.received .. " - "
+                          .. net_now.sent) .. markup.font("Source Code Pro 2", " "))
     end
 })
 local netbg = wibox.container.background(net.widget, theme.bg_focus, gears.shape.rectangle)
@@ -147,7 +147,7 @@ local networkwidget = wibox.container.margin(netbg, 0, 0, 5, 5)
 -- Weather
 theme.weather = lain.widget.weather({
     city_id = 4862034, -- placeholder (London)
-    notification_preset = { font = "Monospace 9", position = "bottom_right" },
+    notification_preset = { font = "Source Code Pro 9", position = "bottom_right" },
 })
 
 -- Launcher
@@ -155,7 +155,7 @@ local mylauncher = awful.widget.button({ image = theme.awesome_icon_launcher })
 mylauncher:connect_signal("button::press", function() awful.util.mymainmenu:toggle() end)
 
 -- Separators
-local first = wibox.widget.textbox('<span font="Roboto 7"> </span>')
+local first = wibox.widget.textbox('<span font="Source Code Pro 7"> </span>')
 local spr_small = wibox.widget.imagebox(theme.spr_small)
 local spr_very_small = wibox.widget.imagebox(theme.spr_very_small)
 local spr_right = wibox.widget.imagebox(theme.spr_right)
