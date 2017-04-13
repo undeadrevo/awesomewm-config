@@ -4,3 +4,6 @@
 [submodule "freedesktop"]
 	path = freedesktop
 	url = https://github.com/copycat-killer/awesome-freedesktop.git
+[submodule "switcher"]
+	path = switcher
+	url = https://github.com/berlam/awesome-switcher-preview.git

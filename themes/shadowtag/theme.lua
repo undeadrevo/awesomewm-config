@@ -1,7 +1,7 @@
 
 --[[
                                
-     Shadowtag Awesome WM theme 2.0 
+     Shadowtag Awesome WM theme 2.1 
      github.com/undeadrevo
                                
 --]]
@@ -10,6 +10,7 @@ local gears  = require("gears")
 local lain   = require("lain")
 local awful  = require("awful")
 local wibox  = require("wibox")
+local eminent  = require("eminent")
 local string = string
 local os     = { getenv = os.getenv }
 
@@ -21,23 +22,24 @@ theme.font                                      = "Source Code Pro 8"
 theme.taglist_font                              = "FontAwesome 10"
 theme.fg_normal                                 = "#FFFFFF"
 theme.fg_focus                                  = "#0099CC"
-theme.bg_focus                                  = "#303030"
-theme.bg_normal                                 = "#242424"
+theme.bg_focus                                  = "#222222"
+theme.bg_normal                                 = "#222222"
 theme.fg_urgent                                 = "#CC9393"
 theme.bg_urgent                                 = "#006B8E"
 theme.border_width                              = 0
-theme.border_normal                             = "#252525"
+theme.border_normal                             = "#222222"
 theme.border_focus                              = "#0099CC"
-theme.taglist_fg_focus                          = "#FFFFFF"
+theme.taglist_bg_normal                         = "#222222"
+theme.taglist_bg_focus                          = "#222222"
+theme.taglist_fg_focus                          = "#4CB7DB"
 theme.tasklist_bg_normal                        = "#222222"
 theme.tasklist_fg_focus                         = "#4CB7DB"
 theme.menu_height                               = 20
 theme.menu_width                                = 160
 theme.menu_icon_size                            = 18
+theme.menu_icon                                 = theme.icon_dir .. "/menu_icon.png"
 theme.awesome_icon                              = theme.icon_dir .. "/awesome_icon_white.png"
 theme.awesome_icon_launcher                     = theme.icon_dir .. "/awesome_icon.png"
-theme.taglist_squares_sel                       = theme.icon_dir .. "/square_sel.png"
-theme.taglist_squares_unsel                     = theme.icon_dir .. "/square_unsel.png"
 theme.spr_small                                 = theme.icon_dir .. "/spr_small.png"
 theme.spr_very_small                            = theme.icon_dir .. "/spr_very_small.png"
 theme.spr_right                                 = theme.icon_dir .. "/spr_right.png"
@@ -147,11 +149,12 @@ local networkwidget = wibox.container.margin(netbg, 0, 0, 5, 5)
 -- Weather
 theme.weather = lain.widget.weather({
     city_id = 4862034, -- placeholder (London)
+    units = "imperial",
     notification_preset = { font = "Source Code Pro 9", position = "bottom_right" },
 })
 
 -- Launcher
-local mylauncher = awful.widget.button({ image = theme.awesome_icon_launcher })
+local mylauncher = awful.widget.button({ image = theme.menu_icon })
 mylauncher:connect_signal("button::press", function() awful.util.mymainmenu:toggle() end)
 
 -- Separators
@@ -195,37 +198,38 @@ function theme.at_screen_connect(s)
                            awful.button({ }, 4, function () awful.layout.inc( 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(-1) end)))
     -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons, { bg_focus = barcolor })
+    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons, { bg_focus = bg_normal })
 
     mytaglistcont = wibox.container.background(s.mytaglist, theme.bg_focus, gears.shape.rectangle)
     s.mytag = wibox.container.margin(mytaglistcont, 0, 0, 5, 5)
 
     -- Create a tasklist widget
-    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.bg_focus, shape = gears.shape.rectangle, shape_border_width = 5, shape_border_color = theme.tasklist_bg_normal, align = "center" })
+    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.bg_normal, shape = gears.shape.rectangle, shape_border_width = 5, shape_border_color = theme.tasklist_bg_normal, align = "center" })
 
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s, height = 24 })
+    s.borderwibox = awful.wibar({ position = "top", screen = s, height = 1, bg = theme.fg_focus, x = 0, y = 33})
 
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            s.mytag,
-            s.mylayoutbox,
-            s.mypromptbox,
+            mylauncher,
+            --s.mylayoutbox,
         },
-        nil, -- Middle widget
+        s.mypromptbox, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            cpu_icon,
-            cpuwidget,
-            netdown_icon,
-            networkwidget,
-            netup_icon,
-            clock_icon,
-            clockwidget,
+            s.mytag,
+            --cpu_icon,
+            --cpuwidget,
+            --netdown_icon,
+            --networkwidget,
+            --netup_icon,
+            --clock_icon,
             wibox.widget.systray(),
+            clockwidget,
         },
     }
 

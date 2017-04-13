@@ -1,7 +1,7 @@
 
 --[[
                                        
-     Awesome WM Shadowtag 2.0 config
+     Awesome WM Shadowtag 2.1 config
      github.com/undeadrevo    
                                        
 --]]
@@ -20,6 +20,7 @@ local lain          = require("lain")
 --local menubar       = require("menubar")
 local freedesktop   = require("freedesktop")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
+local switcher = require("switcher")
 -- }}}
 
 -- {{{ Error handling
@@ -55,7 +56,7 @@ local function run_once(cmd_arr)
     end
 end
 
-run_once({ "nm-applet", "blueman-applet", "mate-power-manager", "volumeicon", "mpd", "whatpulse" }) --"urxvtd", "unclutter -root" })
+run_once({ "nm-applet", "blueman-applet", "mate-power-manager", "volumeicon", "mpd", "whatpulse", "caffeine -a" }) --"urxvtd", "unclutter -root" })
 -- }}}
 
 -- {{{ Variable definitions
@@ -68,8 +69,8 @@ local gui_editor   = "subl3" -- "gvim"
 local browser      = "firefox"
 
 awful.util.terminal = terminal
---awful.util.tagnames = { "1", "2", "3", "4", "5" }
-awful.util.tagnames = { " ", " ", " ", " ", " ", " ", " ", " ", " ", " " }
+awful.util.tagnames = { "1", "2", "3", "4", "5" }
+--awful.util.tagnames = { " ", " ", " ", " ", " ", " ", " ", " ", " ", " " }
 awful.layout.layouts = {
     awful.layout.suit.floating,
 --[[
@@ -213,6 +214,16 @@ root.buttons(awful.util.table.join(
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
 
+    -- Switcher
+    awful.key({ altkey,           }, "Tab",
+      function ()
+         switcher.switch( 1, "Alt_L", "Tab", "ISO_Left_Tab")
+      end),
+ 
+    awful.key({ altkey, "Shift"   }, "Tab",
+      function ()
+          switcher.switch(-1, "Alt_L", "Tab", "ISO_Left_Tab")
+      end),
     -- Hotkeys
     awful.key({ superkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
@@ -500,7 +511,7 @@ awful.rules.rules = {
     -- Titlebars
     { rule_any = { type = { "dialog", "normal" } },
       properties = { titlebars_enabled = true } },
-
+--[[
     { rule = { class = "Firefox" },
       properties = { screen = 1, tag = screen[1].tags[1] } },
     { rule = { class = "Pcmanfm" },
@@ -522,9 +533,10 @@ awful.rules.rules = {
     { rule = { class = "ncmpcpp" },
       properties = { screen = 1, tag = screen[1].tags[7] } },
     { rule = { class = "Steam" },
-      properties = { screen = 1, tag = screen[1].tags[8] } },
+      properties = { screen = 1, tag = screen[1].tags[8], titlebars_enabled = false } },
     { rule = { class = "Reditr" },
       properties = { screen = 1, tag = screen[1].tags[9], maximized = true } },
+]]--
 }
 -- }}}
 
