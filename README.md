@@ -23,7 +23,7 @@ To use this configuration, git clone this, and mv awesome-config to ~/.config/aw
 
   * `cd ~/.config; git clone https://github.com/undeadrevo/awesomewm-config.git awesome`
   * `cd ~/.config/awesome`
-  * `git submodule init && git submodule update` - download lain and freedesktop modules
+  * `git submodule init && git submodule update` - download switcher, lain, and freedesktop modules
 
 Try the one liner:
 
